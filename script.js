@@ -9,11 +9,6 @@ function getComputerChoice(){
     }
 }
 
-function getPlayerChoice(){
-    let playerPick = prompt("Rock Paper Scissors?").toLowerCase();
-    return playerPick;
-}
-
 function playRound(playerSelection, computerSelection){
     if(playerSelection == "rock"){
         if(computerSelection == "paper"){
@@ -43,27 +38,12 @@ function playRound(playerSelection, computerSelection){
         }
     }
 }
-
-function game(){
-    let playerVictories = 0;
-    let computerVictories = 0;
-    for (let i = 0; i < 5; i++){
-        let winner = playRound(getPlayerChoice(), getComputerChoice());
-        console.log(winner);
-        if (winner == "Player Wins!"){
-            playerVictories++;
-        } else if (winner == "Computer Wins!"){
-            computerVictories++;
-        }
-    }
-    console.log("Player: " + playerVictories + " Computer " + computerVictories);
-    if (playerVictories > computerVictories){
-        console.log("Player Wins the game!");
-    } else if (computerVictories > playerVictories){
-        console.log("Computer wins the game!");
-    } else {
-        console.log("Its a tie OMG!!!");
-    }
+const buttClick = document.querySelectorAll("button");
+for(i of buttClick){
+    i.addEventListener("click", myFunction);
 }
 
-game();
+function myFunction(){
+    let pickmeed = this.value;
+    console.log(playRound(pickmeed, getComputerChoice()));
+}
