@@ -1,3 +1,6 @@
+let playersPoints = 0;
+let computersPoints = 0;
+
 function getComputerChoice(){
     let computerPick = Math.floor(Math.random() * 3 + 1);
     if(computerPick == 1){
@@ -9,32 +12,55 @@ function getComputerChoice(){
     }
 }
 
+const container = document.getElementById("container");
+const currentPlay = document.createElement("p");
+const score = document.createElement("p");
+const winnerGame = document.createElement("p");
+container.appendChild(currentPlay);
+container.appendChild(score);
+container.appendChild(winnerGame);
+
 function playRound(playerSelection, computerSelection){
     if(playerSelection == "rock"){
         if(computerSelection == "paper"){
-            return "Computer Wins!";
+            computersPoints += 1;
+            currentPlay.innerHTML = "Player: Rock. Computer: Paper. Computer win."
+            score.innerHTML = "The score is.. Player: " + playersPoints + " Computer: " + computersPoints;
         } else if (computerSelection == "scissors"){
-            return "Player Wins!";
+            playersPoints += 1;
+            currentPlay.innerHTML = "Player: Rock. Computer: Scissors. Player win."
+            score.innerHTML = "The score is.. Player: " + playersPoints + " Computer: " + computersPoints;
         } else {
-            return "It's a tie!";
+            currentPlay.innerHTML = "Player: Rock. Computer: Rock. Its a tie!"
+            score.innerHTML = "The score is.. Player: " + playersPoints + " Computer: " + computersPoints;
         }
     }
     if(playerSelection == "paper"){
         if(computerSelection == "scissors"){
-            return "Computer Wins!";
+            computersPoints += 1;
+            currentPlay.innerHTML = "Player: Paper. Computer: Scissors. Computer win."
+            score.innerHTML = "The score is.. Player: " + playersPoints + " Computer: " + computersPoints;
         } else if (computerSelection == "rock"){
-            return "Player Wins!";
+            playersPoints += 1;
+            currentPlay.innerHTML = "Player: Paper. Computer: Rock. Player win."
+            score.innerHTML = "The score is.. Player: " + playersPoints + " Computer: " + computersPoints;
         } else {
-            return "It's a tie!";
+            currentPlay.innerHTML = "Player: Paper. Computer: Paper. Its a tie!"
+            score.innerHTML = "The score is.. Player: " + playersPoints + " Computer: " + computersPoints;
         }
     }
     if(playerSelection == "scissors"){
         if(computerSelection == "paper"){
-            return "Computer Wins!";
+            playersPoints += 1;
+            currentPlay.innerHTML = "Player: Scissors. Computer: Paper. Player win."
+            score.innerHTML = "The score is.. Player: " + playersPoints + " Computer: " + computersPoints;
         } else if (computerSelection == "rock"){
-            return "Player Wins!";
+            computersPoints += 1;
+            currentPlay.innerHTML = "Player: Scissors. Computer: Rock. Computer win."
+            score.innerHTML = "The score is.. Player: " + playersPoints + " Computer: " + computersPoints;
         } else {
-            return "It's a tie!";
+            currentPlay.innerHTML = "Player: Scissors. Computer: Scissors. It is a tie!."
+            score.innerHTML = "The score is.. Player: " + playersPoints + " Computer: " + computersPoints;
         }
     }
 }
@@ -43,7 +69,20 @@ for(i of buttClick){
     i.addEventListener("click", myFunction);
 }
 
+const refreshPage = document.createElement("button");
+refreshPage.innerHTML = "Play again";
+refreshPage.addEventListener("click", () =>{
+    location.reload();
+})
+
 function myFunction(){
-    let pickmeed = this.value;
-    console.log(playRound(pickmeed, getComputerChoice()));
+    let pickmee = this.value;
+    playRound(pickmee, getComputerChoice());
+    if(playersPoints === 5){
+        winnerGame.innerHTML = "The winner of the game is the Player!";
+        container.appendChild(refreshPage);
+    } else if (computersPoints === 5){
+        winnerGame.innerHTML = "The winner of the game is the Computer!";
+        container.appendChild(refreshPage);
+    }
 }
